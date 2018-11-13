@@ -1,0 +1,16 @@
+data:
+  string: "string"
+  int: 1
+  float: 1.0
+  bool: true
+  stringSlice:
+    - "string1"
+    - "string2"
+  nested:
+    string: "nested.string"
+    int: 2
+    float: 2.0
+    bool: true
+    stringSlice:
+    - "nested.string1"
+    - "nested.string2"
