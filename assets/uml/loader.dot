@@ -1,0 +1,49 @@
+digraph Loader {
+	graph [fontname = "helvetica"];
+	node [fontname = "helvetica", shape = "record"];
+	edge [fontname = "helvetica" arrowtail = "empty", fontsize = 8.0];
+
+	Source [
+		label = "{\<\<interface\>\>\nconfig.Source||+ Source(): string\l}"
+	]
+
+	Loader [
+		label = "{\<\<interface\>\>\nconfig.Loader||+ Load() : (config.Provider, error)\l}"
+	]
+
+	Source -> Loader [dir=back]
+
+	Composite [
+		label = "{composite.Loader}"
+	]
+
+	Data [
+		label = "{loader.Data|+ Location : string\l}"
+	]
+
+	Reader [
+		label = "{\<\<interface\>\>\nloader.Reader||+ Read(string) : (io.Reader, error)\l}"
+	]
+
+	Parser [
+		label = "{\<\<interface\>\>\nloader.Parser||+ Parse(io.Reader) : (map[string]interface\{\}, error)\l}"
+	]
+
+	edge [style=dashed]
+	Loader -> Composite [dir=back]
+	Loader -> Data [dir=back]	
+
+	LoaderEntry [
+		label = "{composite.LoaderEntry|+ Optional : bool\l}"
+	]
+
+	edge [style = "default",arrowhead = "none",headlabel = "1..*"]
+	Loader -> LoaderEntry
+
+	edge [arrowhead = "diamond"]
+	LoaderEntry -> Composite
+
+	edge [style = "default",headlabel = "1"]
+	Reader -> Data
+	Parser -> Data
+}
