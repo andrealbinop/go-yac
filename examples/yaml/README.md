@@ -6,13 +6,13 @@ informed, they will be merged, and the last file will have higher precedence fro
 ## Usage
 
 ```bash
-go run examples/yaml/main.go -f ${COMMA_DELIMITED_YAML_FILES}
+go run main.go -f ${COMMA_DELIMITED_YAML_FILES}
 ```
 
 ## Example
 
 ```bash
-$ go run examples/yaml/main.go -f test/samples/assets/config.yml
+$ go run main.go -f ../../assets/test_data
 
 yac.data:test/samples/assets/config.yml loaded (1/1)
 Config [data:test/samples/assets/config.yml]:
