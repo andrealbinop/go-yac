@@ -20,9 +20,9 @@ type Data struct {
 	Parser Parser
 }
 
-// Reader interface with function to provide the readable channel (io.Reader)
+// Reader interface with function to provide the readable channel (io.ReadCloser).
 type Reader interface {
-	// Read provides a channel to be read from the provided location
+	// Read provides a channel to be read from the provided location. if io.Reader response is also a io.Closer, loader.Data will try to close it after parse
 	Read(string) (io.Reader, error)
 }
 
@@ -30,6 +30,16 @@ type Reader interface {
 type Parser interface {
 	// Parse provided data to to a key value store (map[string]interface{})
 	Parse(io.Reader) (map[string]interface{}, error)
+}
+
+// Closer currently just wraps io.Reader, allowing for mock generation when testing with io.Reader
+type IOReader interface {
+	io.Reader
+}
+
+// Closer currently just wraps io.ReadCloser, allowing for mock generation when testing with io.ReadCloser
+type IOReadCloser interface {
+	io.ReadCloser
 }
 
 // Load uses the Location, Reader and Parser to build config.Provider.
@@ -45,6 +55,12 @@ func (s *Data) Load() (cfg config.Provider, err error) {
 			Repository: &repository.Map{
 				Database: parsed,
 			},
+		}
+	}
+	if closer, ok := reader.(io.Closer); ok {
+		errClose := closer.Close()
+		if errClose != nil {
+			err = errClose
 		}
 	}
 	return
