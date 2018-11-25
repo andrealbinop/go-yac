@@ -1,4 +1,4 @@
-// samples package helps this project's tests, providing filesystem assets
+// Package samples helps this project's tests, providing filesystem assets
 package samples
 
 import (

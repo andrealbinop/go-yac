@@ -2,11 +2,13 @@
 package config
 
 const (
+	// EmptyString constant to be used along implementations
 	EmptyString = ""
-	Zero        = 0
+	// Zero number constant to be used along implementations
+	Zero = 0
 )
 
-// Repository interface for implementors to provide an identifier regarding loaded configuration
+// Source interface for implementors to provide an identifier regarding loaded configuration
 type Source interface {
 	// Repository function, provides an identifier regarding loaded configuration
 	Source() string

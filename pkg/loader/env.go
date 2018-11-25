@@ -1,4 +1,4 @@
-// loader provides reading configuration from os environment
+// Package loader provides reading configuration from os environment
 package loader
 
 import (
@@ -47,7 +47,7 @@ func (p *EqualDelimiterParser) Load() (cfg config.Provider, err error) {
 	return
 }
 
-// Default identifier for this loader
+// Source returns an identifier for this loader
 func (p *EqualDelimiterParser) Source() string {
 	return fmt.Sprintf("%v:%v*", p.Name, p.Prefix)
 }

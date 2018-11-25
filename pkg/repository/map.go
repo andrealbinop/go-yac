@@ -1,4 +1,4 @@
-// repository package with a map[string]interface{} backed config.Repository implementation
+// Package repository with a map[string]interface{} backed config.Repository implementation
 package repository
 
 // Map implements config.Provider with a map[string]interface{} database

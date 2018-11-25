@@ -1,4 +1,4 @@
-// logger package provides an interfaces used to log configuration provisioning default implementations.
+// Package logger provides an interfaces used to log configuration provisioning default implementations.
 // This interface is compatible with stdlib log.Logger (which doesn't have an interface).
 // You may provide your own logger.Logger implementation by swapping logger.Factory provider
 package logger
