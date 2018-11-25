@@ -1,4 +1,4 @@
-// yaml package parses yaml data to be used by map configuration databases
+// Package yaml parses yaml data to be used by map configuration databases
 package yaml
 
 import (

@@ -1,4 +1,4 @@
-// provider package contains default implementations from config.Provider interface
+// Package provider contains default implementations from config.Provider interface
 package provider
 
 import (
@@ -14,7 +14,7 @@ type Default struct {
 	Repository config.Repository
 }
 
-// Default returns the source name associated with this provider
+// Source returns the source name associated with this provider
 func (c *Default) Source() string {
 	return c.SourceName
 }

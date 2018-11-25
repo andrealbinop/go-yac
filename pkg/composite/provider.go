@@ -88,7 +88,7 @@ func (c *Provider) Set(name string, value interface{}) interface{} {
 	return previous
 }
 
-// Repository returns a merged identifier from the sources associated with this provider
+// Source returns a merged identifier from the sources associated with this provider
 func (c *Provider) Source() string {
 	var sourceNames []string
 	for _, source := range c.Sources {

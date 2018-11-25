@@ -1,4 +1,4 @@
-// loader provides reading configuration from streamable data
+// Package loader provides reading configuration from streamable data
 package loader
 
 import (
@@ -32,12 +32,12 @@ type Parser interface {
 	Parse(io.Reader) (map[string]interface{}, error)
 }
 
-// Closer currently just wraps io.Reader, allowing for mock generation when testing with io.Reader
+// IOReader currently just wraps io.Reader, allowing for mock generation when testing with io.Reader
 type IOReader interface {
 	io.Reader
 }
 
-// Closer currently just wraps io.ReadCloser, allowing for mock generation when testing with io.ReadCloser
+// IOReadCloser currently just wraps io.ReadCloser, allowing for mock generation when testing with io.ReadCloser
 type IOReadCloser interface {
 	io.ReadCloser
 }
@@ -66,7 +66,7 @@ func (s *Data) Load() (cfg config.Provider, err error) {
 	return
 }
 
-// Default identifies that this is a data loader and which location is associated to
+// Source identifies that this is a data loader and which location is associated to
 func (s *Data) Source() string {
 	return fmt.Sprintf("data:%v", path.Clean(s.Location))
 }
