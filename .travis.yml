@@ -14,9 +14,11 @@ before_install:
   - chmod +x $GOPATH/bin/dep
 
 install:
+  - go get golang.org/x/lint/golint
   - go get github.com/mattn/goveralls
   - dep ensure -v
 
 script:
+  - golint -set_exit_status ./pkg/... ./internal/... ./examples/yaml ./examples/viper
   - go test -v ./... -coverpkg=./... -coverprofile=coverage.out
   - goveralls -coverprofile=coverage.out -service=travis-ci -ignore="examples/*/*.go,internal/mocks/*.go,internal/samples/*.go"
