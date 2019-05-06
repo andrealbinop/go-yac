@@ -112,8 +112,20 @@ func TestPropertyInt(t *testing.T) {
 	repository.AssertExpectations(t)
 }
 
+func TestPropertyIntWithRawValue(t *testing.T) {
+	provider, repository := providerWithProperty(existent, "1")
+	assert.Equal(t, valInt, provider.Int(existent))
+	repository.AssertExpectations(t)
+}
+
 func TestPropertyFloat(t *testing.T) {
 	provider, repository := providerWithProperty(existent, valFloat)
+	assert.Equal(t, valFloat, provider.Float(existent))
+	repository.AssertExpectations(t)
+}
+
+func TestPropertyFloatWithRawValue(t *testing.T) {
+	provider, repository := providerWithProperty(existent, "1.0")
 	assert.Equal(t, valFloat, provider.Float(existent))
 	repository.AssertExpectations(t)
 }
@@ -124,10 +136,24 @@ func TestPropertyBool(t *testing.T) {
 	repository.AssertExpectations(t)
 }
 
+func TestPropertyBoolWithRawValue(t *testing.T) {
+	provider, repository := providerWithProperty(existent, "true")
+	assert.Equal(t, valBool, provider.Bool(existent))
+	repository.AssertExpectations(t)
+}
+
 func TestPropertyStringSlice(t *testing.T) {
 	value := []string{valString}
 	provider, repository := providerWithProperty(existent, value)
 	assert.Equal(t, value, provider.StringSlice(existent))
+	repository.AssertExpectations(t)
+}
+
+func TestPropertyStringSliceWithRawValue(t *testing.T) {
+	value := []interface{}{valString, valString}
+	expected := []string{valString, valString}
+	provider, repository := providerWithProperty(existent, value)
+	assert.Equal(t, expected, provider.StringSlice(existent))
 	repository.AssertExpectations(t)
 }
 
