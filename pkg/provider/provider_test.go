@@ -101,41 +101,66 @@ func TestPropertyGet(t *testing.T) {
 }
 
 func TestPropertyString(t *testing.T) {
-	provider, repository := providerWithProperty(existent, valString)
+	parser := &mocks.ValueConverter{}
+	parser.On("ToString", valString).Return(valString)
+	provider, repository := providerWithPropertyAndParser(existent, valString, parser)
 	assert.Equal(t, valString, provider.String(existent))
 	repository.AssertExpectations(t)
+	parser.AssertExpectations(t)
 }
 
 func TestPropertyInt(t *testing.T) {
-	provider, repository := providerWithProperty(existent, valInt)
+	parser := &mocks.ValueConverter{}
+	parser.On("ToInt", valInt).Return(valInt)
+	provider, repository := providerWithPropertyAndParser(existent, valInt, parser)
 	assert.Equal(t, valInt, provider.Int(existent))
 	repository.AssertExpectations(t)
+	parser.AssertExpectations(t)
 }
 
 func TestPropertyFloat(t *testing.T) {
-	provider, repository := providerWithProperty(existent, valFloat)
+	parser := &mocks.ValueConverter{}
+	parser.On("ToFloat", valFloat).Return(valFloat)
+	provider, repository := providerWithPropertyAndParser(existent, valFloat, parser)
 	assert.Equal(t, valFloat, provider.Float(existent))
 	repository.AssertExpectations(t)
+	parser.AssertExpectations(t)
 }
 
 func TestPropertyBool(t *testing.T) {
-	provider, repository := providerWithProperty(existent, valBool)
+	parser := &mocks.ValueConverter{}
+	parser.On("ToBool", valBool).Return(valBool)
+	provider, repository := providerWithPropertyAndParser(existent, valBool, parser)
 	assert.Equal(t, valBool, provider.Bool(existent))
 	repository.AssertExpectations(t)
+	parser.AssertExpectations(t)
 }
 
 func TestPropertyStringSlice(t *testing.T) {
+	parser := &mocks.ValueConverter{}
 	value := []string{valString}
-	provider, repository := providerWithProperty(existent, value)
+	parser.On("ToStringSlice", value).Return(value)
+	provider, repository := providerWithPropertyAndParser(existent, value, parser)
 	assert.Equal(t, value, provider.StringSlice(existent))
 	repository.AssertExpectations(t)
 }
 
 func providerWithProperty(key string, value interface{}) (config.Provider, mocks.Repository) {
+	return buildDefaultProviderWithProperty(key, value)
+}
+
+func providerWithPropertyAndParser(key string, value interface{}, parser *mocks.ValueConverter) (config.Provider, mocks.Repository) {
+	provider, repository := buildDefaultProviderWithProperty(key, value)
+	provider.ValueConverter = parser
+	return provider, repository
+}
+
+func buildDefaultProviderWithProperty(key string, value interface{}) (*Default, mocks.Repository) {
 	repository := mocks.Repository{}
 	repository.On("Get", key).Return(value, value != nil)
 	provider := Default{
 		Repository: &repository,
+
 	}
 	return &provider, repository
 }

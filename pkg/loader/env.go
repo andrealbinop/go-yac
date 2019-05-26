@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/andrealbinop/go-yac/pkg/config"
 	"github.com/andrealbinop/go-yac/pkg/provider"
+	"github.com/andrealbinop/go-yac/pkg/provider/valueconverter"
 	"github.com/andrealbinop/go-yac/pkg/repository"
 	"os"
 	"strings"
@@ -42,7 +43,8 @@ func (p *EqualDelimiterParser) Load() (cfg config.Provider, err error) {
 		Repository: &repository.Map{
 			Database: envData,
 		},
-		SourceName: p.Source(),
+		SourceName:     p.Source(),
+		ValueConverter: &valueconverter.Default{},
 	}
 	return
 }

@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/andrealbinop/go-yac/pkg/config"
 	"github.com/andrealbinop/go-yac/pkg/provider"
+	"github.com/andrealbinop/go-yac/pkg/provider/valueconverter"
 	"github.com/andrealbinop/go-yac/pkg/repository"
 	"io"
 	"path"
@@ -55,6 +56,7 @@ func (s *Data) Load() (cfg config.Provider, err error) {
 			Repository: &repository.Map{
 				Database: parsed,
 			},
+			ValueConverter: &valueconverter.Default{},
 		}
 	}
 	if closer, ok := reader.(io.Closer); ok {

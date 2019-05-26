@@ -42,6 +42,20 @@ type Provider interface {
 	StringSlice(string) []string
 }
 
+// ValueConverter interface for parser values into specific types
+type ValueConverter interface {
+	// ToString parse a value into string
+	ToString(interface{}) string
+	// ToInt parses a value into int
+	ToInt(interface{}) int
+	// ToFloat parses a value into float64
+	ToFloat(interface{}) float64
+	// ToBool parses a value into bool
+	ToBool(interface{}) bool
+	// ToStringSlice parses a value into string slice
+	ToStringSlice(interface{}) []string
+}
+
 // Loader interface to represent loading config.Provider
 type Loader interface {
 	Source
