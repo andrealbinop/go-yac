@@ -33,6 +33,22 @@ if cfg, err = loader.Load(); err != nil {
 value := cfg.String("key")
 ```
 
+## Custom Property Recovery
+
+You can customize `config.Provider` property recovering routine, for instance, ignore camel case, as sampled below:
+
+```go
+loader := ... // build your own config.Loader instance
+var err error
+var cfg config.Provider
+if cfg, err = loader.Load(); err != nil {
+    // error handling
+} else if defaultLoader, ok := cfg.(provider.Default); ok {
+	defaultLoader.ValueResolver = // Set Custom ValueResolver Ignored Camel Case
+}
+```
+
+
 ## Development Notes
 
 - This project follows [golang-standards/project-layout][] project structure.

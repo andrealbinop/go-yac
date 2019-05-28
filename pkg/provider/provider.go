@@ -11,9 +11,10 @@ type Default struct {
 	SourceName string
 	// Default containing all properties associated with this provider
 	Repository config.Repository
+	// ValueResolver to retrieve and verify the existence of values in repository
+	ValueResolver config.ValueResolver
 	// ValueConverter is used to convert values providing from repository
 	ValueConverter config.ValueConverter
-
 }
 
 // Source returns the source name associated with this provider
@@ -74,7 +75,7 @@ func (c *Default) StringSlice(name string) []string {
 
 // IsSet returns if there's a value associated with the key.
 func (c *Default) IsSet(name string) bool {
-	return c.Repository.IsSet(name)
+	return c.ValueResolver.IsSet(name, c.Repository)
 }
 
 // AllSettings returns all values associated with this provider as a map[string]interface{}.
@@ -84,7 +85,7 @@ func (c *Default) AllSettings() map[string]interface{} {
 
 // Get returns the value associated with the key.
 func (c *Default) Get(name string) (interface{}, bool) {
-	return c.Repository.Get(name)
+	return c.ValueResolver.Resolve(name, c.Repository)
 }
 
 // Set associates a value to to the key.
