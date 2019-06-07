@@ -2,7 +2,6 @@
 package provider
 
 import (
-	"fmt"
 	"github.com/andrealbinop/go-yac/pkg/config"
 )
 
@@ -12,6 +11,9 @@ type Default struct {
 	SourceName string
 	// Default containing all properties associated with this provider
 	Repository config.Repository
+	// ValueConverter is used to convert values providing from repository
+	ValueConverter config.ValueConverter
+
 }
 
 // Source returns the source name associated with this provider
@@ -24,7 +26,7 @@ func (c *Default) String(name string) string {
 	var result string
 	value, ok := c.Get(name)
 	if ok {
-		result = fmt.Sprintf("%v", value)
+		result = c.ValueConverter.ToString(value)
 	}
 	return result
 
@@ -35,7 +37,7 @@ func (c *Default) Int(name string) int {
 	var result int
 	value, ok := c.Get(name)
 	if ok {
-		result, _ = value.(int)
+		result = c.ValueConverter.ToInt(value)
 	}
 	return result
 }
@@ -45,7 +47,7 @@ func (c *Default) Float(name string) float64 {
 	var result float64
 	value, ok := c.Get(name)
 	if ok {
-		result, _ = value.(float64)
+		result = c.ValueConverter.ToFloat(value)
 	}
 	return result
 }
@@ -55,7 +57,7 @@ func (c *Default) Bool(name string) bool {
 	var result bool
 	value, ok := c.Get(name)
 	if ok {
-		result, _ = value.(bool)
+		result = c.ValueConverter.ToBool(value)
 	}
 	return result
 }
@@ -65,7 +67,7 @@ func (c *Default) StringSlice(name string) []string {
 	var result []string
 	value, ok := c.Get(name)
 	if ok {
-		result, _ = value.([]string)
+		result = c.ValueConverter.ToStringSlice(value)
 	}
 	return result
 }
