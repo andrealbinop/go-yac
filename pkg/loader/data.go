@@ -3,12 +3,14 @@ package loader
 
 import (
 	"fmt"
+	"io"
+	"path"
+
 	"github.com/andrealbinop/go-yac/pkg/config"
 	"github.com/andrealbinop/go-yac/pkg/provider"
 	"github.com/andrealbinop/go-yac/pkg/provider/valueconverter"
+	"github.com/andrealbinop/go-yac/pkg/provider/valueresolver"
 	"github.com/andrealbinop/go-yac/pkg/repository"
-	"io"
-	"path"
 )
 
 // Data reads uses the the Location, Reader and Parser to load an instance of config.Provider
@@ -57,6 +59,7 @@ func (s *Data) Load() (cfg config.Provider, err error) {
 				Database: parsed,
 			},
 			ValueConverter: &valueconverter.Default{},
+			ValueResolver:   &valueresolver.Default{},
 		}
 	}
 	if closer, ok := reader.(io.Closer); ok {

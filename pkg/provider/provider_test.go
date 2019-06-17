@@ -1,10 +1,13 @@
 package provider
 
 import (
+	"testing"
+
+	"github.com/stretchr/testify/assert"
+
 	"github.com/andrealbinop/go-yac/internal/mocks"
 	"github.com/andrealbinop/go-yac/pkg/config"
-	"github.com/stretchr/testify/assert"
-	"testing"
+	"github.com/andrealbinop/go-yac/pkg/provider/valueresolver"
 )
 
 const (
@@ -58,7 +61,8 @@ func TestPropertyNotFoundGet(t *testing.T) {
 func TestPropertyNotSet(t *testing.T) {
 	repository := mocks.Repository{}
 	provider := Default{
-		Repository: &repository,
+		Repository:    &repository,
+		ValueResolver: &valueresolver.Default{},
 	}
 	repository.On("IsSet", nonExistent).Return(false)
 	assert.False(t, provider.IsSet(nonExistent))
@@ -159,8 +163,8 @@ func buildDefaultProviderWithProperty(key string, value interface{}) (*Default, 
 	repository := mocks.Repository{}
 	repository.On("Get", key).Return(value, value != nil)
 	provider := Default{
-		Repository: &repository,
-
+		Repository:    &repository,
+		ValueResolver: &valueresolver.Default{},
 	}
 	return &provider, repository
 }

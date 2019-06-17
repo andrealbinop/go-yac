@@ -3,12 +3,14 @@ package loader
 
 import (
 	"fmt"
+	"os"
+	"strings"
+
 	"github.com/andrealbinop/go-yac/pkg/config"
 	"github.com/andrealbinop/go-yac/pkg/provider"
 	"github.com/andrealbinop/go-yac/pkg/provider/valueconverter"
+	"github.com/andrealbinop/go-yac/pkg/provider/valueresolver"
 	"github.com/andrealbinop/go-yac/pkg/repository"
-	"os"
-	"strings"
 )
 
 const (
@@ -44,6 +46,7 @@ func (p *EqualDelimiterParser) Load() (cfg config.Provider, err error) {
 			Database: envData,
 		},
 		SourceName:     p.Source(),
+		ValueResolver:   &valueresolver.Default{},
 		ValueConverter: &valueconverter.Default{},
 	}
 	return

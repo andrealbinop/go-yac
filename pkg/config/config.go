@@ -56,6 +56,14 @@ type ValueConverter interface {
 	ToStringSlice(interface{}) []string
 }
 
+// ValueResolver interface to customize property recovery by name
+type ValueResolver interface {
+	// Resolve returns a value associated with the name.
+	Resolve(string, Repository) (interface{}, bool)
+	// IsSet returns if there's a value associated with the name.
+	IsSet(string, Repository) bool
+}
+
 // Loader interface to represent loading config.Provider
 type Loader interface {
 	Source
