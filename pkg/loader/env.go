@@ -37,7 +37,7 @@ func (p *EqualDelimiterParser) Load() (cfg config.Provider, err error) {
 		if !strings.HasPrefix(e, p.Prefix) {
 			continue
 		}
-		pair := strings.Split(e, "=")
+		pair := strings.SplitN(e, "=", 2)
 		key := strings.TrimPrefix(pair[0], p.Prefix)
 		envData[key] = pair[1]
 	}
