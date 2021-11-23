@@ -73,6 +73,17 @@ func (c *Default) StringSlice(name string) []string {
 	return result
 }
 
+
+// IntSlice returns a int slice value associated with the key.
+func (c *Default) IntSlice(name string) []int {
+	var result []int
+	value, ok := c.Get(name)
+	if ok {
+		result = c.ValueConverter.ToIntSlice(value)
+	}
+	return result
+}
+
 // IsSet returns if there's a value associated with the key.
 func (c *Default) IsSet(name string) bool {
 	return c.ValueResolver.IsSet(name, c.Repository)
