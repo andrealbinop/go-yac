@@ -40,6 +40,8 @@ type Provider interface {
 	Bool(string) bool
 	// StringSlice returns a string slice value associated with the key.
 	StringSlice(string) []string
+	// IntSlice returns a int slice value associated with the key.
+	IntSlice(string) []int
 }
 
 // ValueConverter interface for parser values into specific types
@@ -54,6 +56,8 @@ type ValueConverter interface {
 	ToBool(interface{}) bool
 	// ToStringSlice parses a value into string slice
 	ToStringSlice(interface{}) []string
+	// ToIntSlice parses a value into int slice
+	ToIntSlice(interface{}) []int
 }
 
 // ValueResolver interface to customize property recovery by name

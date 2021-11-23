@@ -74,4 +74,18 @@ func (p *Default) ToStringSlice(value interface{}) []string {
 	return result
 }
 
-
+// ToIntSlice parses a value into int slice
+func (p *Default) ToIntSlice(value interface{}) []int {
+	var result []int
+	result, ok := value.([]int)
+	if ok {
+		return result
+	}
+	rawValue, ok := value.([]interface{})
+	if ok {
+		for _, intValue := range rawValue {
+			result = append(result, p.ToInt(intValue))
+		}
+	}
+	return result
+}

@@ -6,6 +6,9 @@ data:
   stringSlice:
     - "string1"
     - "string2"
+  intSlice:
+    - 400
+    - 423
   nested:
     string: "nested.string"
     int: 2
@@ -14,3 +17,6 @@ data:
     stringSlice:
     - "nested.string1"
     - "nested.string2"
+    intSlice:
+      - 500
+      - 523

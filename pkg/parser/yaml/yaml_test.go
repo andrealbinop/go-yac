@@ -36,11 +36,13 @@ func TestParseWithNestedProperties(t *testing.T) {
 			"data.float":              1.0,
 			"data.bool":               true,
 			"data.stringSlice":        []interface{}{"string1", "string2"},
+			"data.intSlice":           []interface{}{400, 423},
 			"data.nested.string":      "nested.string",
 			"data.nested.int":         2,
 			"data.nested.float":       2.0,
 			"data.nested.bool":        true,
 			"data.nested.stringSlice": []interface{}{"nested.string1", "nested.string2"},
+			"data.nested.intSlice":    []interface{}{500, 523},
 		}, data)
 	}
 }

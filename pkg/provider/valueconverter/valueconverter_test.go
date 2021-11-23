@@ -85,3 +85,21 @@ func TestToStringSlice_RawValue(t *testing.T) {
 	expected := []string{"val1", "val2"}
 	assert.Equal(t, expected, parser.ToStringSlice([]interface{}{"val1", "val2"}))
 }
+
+func TestToIntSlice_Success(t *testing.T) {
+	parser := Default{}
+	expected := []int{200, 400, 500}
+	assert.Equal(t, expected, parser.ToIntSlice([]int{200, 400, 500}))
+}
+
+func TestToIntSlice_WrongValue(t *testing.T) {
+	parser := Default{}
+	var expected []int
+	assert.Equal(t, expected, parser.ToIntSlice("val1"))
+}
+
+func TestToIntSlice_RawValue(t *testing.T) {
+	parser := Default{}
+	expected := []int{200, 400, 500}
+	assert.Equal(t, expected, parser.ToIntSlice([]interface{}{200, 400, 500}))
+}

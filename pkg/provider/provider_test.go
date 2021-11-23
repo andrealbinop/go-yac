@@ -149,6 +149,15 @@ func TestPropertyStringSlice(t *testing.T) {
 	repository.AssertExpectations(t)
 }
 
+func TestPropertyIntSlice(t *testing.T) {
+	parser := &mocks.ValueConverter{}
+	value := []int{valInt}
+	parser.On("ToIntSlice", value).Return(value)
+	provider, repository := providerWithPropertyAndParser(existent, value, parser)
+	assert.Equal(t, value, provider.IntSlice(existent))
+	repository.AssertExpectations(t)
+}
+
 func providerWithProperty(key string, value interface{}) (config.Provider, mocks.Repository) {
 	return buildDefaultProviderWithProperty(key, value)
 }
